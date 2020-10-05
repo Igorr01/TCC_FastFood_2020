@@ -1,12 +1,12 @@
-create database TCC;
+create database TCC2020;
 use TCC;
 
 
 create table tb_login(
 	id_login 	int primary key auto_increment,
-    ds_username	varchar(255)	not null,
-    ds_senha	varchar(255)	not null,
-    ds_perfil	varchar(255)	not null
+    ds_usuario	varchar(255)	not null,
+	ds_email    varchar(255)    not null,
+    ds_senha	varchar(255)	not null
 );
 
 create table tb_cliente(
@@ -56,3 +56,11 @@ create table tb_combo(
       nm_bebida         varchar (255),
       nm_acompanhamento   varchar (255)
 );
+
+create table tb_cadastro(
+      id_cadastro       varchar(255),
+      nm_usuario        varchar(255),
+      ds_email          varchar(255),
+      ds_senha          varchar(12)
+);
+
