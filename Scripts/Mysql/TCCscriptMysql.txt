@@ -27,7 +27,7 @@ create table tb_cliente(
 create table tb_pedido(
 	id_pedido                   int primary key auto_increment      not null,
     id_login                    int             not null,
-	id_cardapio                 int             not null,
+	id_cardapio                 int             not null,          
     ds_endereco                 varchar(100)    not null
     PRIMARY KEY (`id_pedido`)
     foreign key (id_login) references tb_login(id_login)          on delete cascade
