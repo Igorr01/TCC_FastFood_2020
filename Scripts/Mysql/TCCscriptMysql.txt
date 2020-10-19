@@ -4,62 +4,62 @@ use TCC;
 
 create table tb_login(
 	id_login 	int primary key auto_increment,
-    ds_usuario	varchar(255)	not null,
-	ds_email    varchar(255)    not null,
-    ds_senha	varchar(255)	not null
+    ds_usuario	varchar(100)	not null,
+	ds_email    varchar(100)    not null,
+    ds_senha	varchar(100)	not null,
+    id_funcionario              int      not null,
+    id_cliente                  int      not null
+    PRIMARY KEY (`id_login`)
+    foreign key (id_funcionario) references tb_funcionario(id_funcionario) on delete cascade
+    foreign key (id_cliente) references tb_cliente(id_cliente)             on delete cascade
 );
 
 create table tb_cliente(
 	id_cliente 					int primary key auto_increment,
-    nm_cliente					varchar(255),
-    ds_email					varchar(255),
-    ds_senha                    varchar(20),
-    ds_celular					varchar(30),
-    id_login				int,
-    id_cadastro             int
-    foreign key (id_login) references tb_login(id_login) on delete cascade
-    foreign key (id_cadastro) references tb_cadastro_cliente(id_cadastro) 
+    nm_cliente					varchar(100)        not null,
+    ds_celular					varchar(20)         not null,
+    ds_endereco                 varchar(100)        not null,
+    ds_idade                    int                 not null,
+    ds_cpf                      varchar(20)         not null
+    PRIMARY KEY (`id_cliente`)
 );
 
 create table tb_pedido(
-	id_pedido                   int primary key auto_increment,
-    nm_rua                      varchar(255),
-    id_cliente                  int,
-	id_cardapio                 int,
-    foreign key (id_cliente) references tb_cliente(id_cliente) on delete cascade,
+	id_pedido                   int primary key auto_increment      not null,
+    id_login                    int             not null,
+	id_cardapio                 int             not null,
+    ds_endereco                 varchar(100)    not null
+    PRIMARY KEY (`id_pedido`)
+    foreign key (id_login) references tb_login(id_login)          on delete cascade
     foreign key (id_cardapio) references tb_cardapio(id_cardapio) on delete cascade
 );
     
 create table tb_funcionario(
-     id_funcionario               int primary key auto_increment,
-     nm_funcionario               varchar(255),
-     ds_carteira_trabalho         varchar(50), 
-	 ds_email				      varchar(255),
-     dt_nascimento			      datetime,
-     id_login				      int,
-    foreign key (id_login) references tb_login(id_login) on delete cascade
+     id_funcionario               int primary key auto_increment     not null,
+     nm_funcionario               varchar(255)        not null,
+     ds_carteira_trabalho         varchar(50)         not null, 
+	 ds_email				      varchar(255)        not null,
+     dt_nascimento			      datetime            not null,
+     ds_endereco                  varchar(100)        not null,
+     nr_celular                   varchar(20)         not null,
+     nr_residencial               varchar(20)         not null,
+     ds_cpf                       varchar(20)         not null,
+     ds_rg                        varchar(20)         not null,
+     PRIMARY KEY (`id_funcionario`)
 );
 
 create table tb_cardarpio(
       id_cardapio int primary key auto_increment, 
-      nm_combo                    varchar (255),
-      vl_preco                    decimal (15.2)
+      id_combo                    int                 not null,
+      vl_preco                    decimal             not null
+      PRIMARY KEY (`id_cardapio`)
 );
 
 create table tb_combo(
-      id_combo          int primary key auto_increment,
-      nm_combo          varchar (255),
-      nm_lanche         varchar(255),
-      nm_bebida         varchar (255),
-      nm_acompanhamento   varchar (255),
-      id_cardapio        int
-      foreign key (id_cardapio) references tb_cardapio(id_cardapio) on delete cascade
-);
-
-create table tb_cadastro_cliente(
-      id_cadastro       varchar(255),
-      nm_usuario        varchar(255),
-      ds_email          varchar(255),
-      ds_senha          varchar(12)
+      id_combo          int primary key auto_increment  not null,
+      nm_lanche           varchar (255)                 not null,
+      nm_bebida           varchar (255)                 not null,
+      nm_acompanhamento   varchar (255)                 not null,
+      PRIMARY KEY (`id_combo`)
 );
 
