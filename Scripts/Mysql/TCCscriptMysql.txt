@@ -12,21 +12,18 @@ create table tb_login(
 create table tb_cliente(
 	id_cliente 					int primary key auto_increment,
     nm_cliente					varchar(255),
-    ds_cpf						varchar(255),
     ds_email					varchar(255),
+    ds_senha                    varchar(20),
     ds_celular					varchar(30),
-    ds_endereco					varchar(255),
-    ds_cep						varchar(15),
-    ds_numero_endereco			varchar(25),
     id_login				int,
+    id_cadastro             int
     foreign key (id_login) references tb_login(id_login) on delete cascade
+    foreign key (id_cadastro) references tb_cadastro_cliente(id_cadastro) 
 );
 
 create table tb_pedido(
 	id_pedido                   int primary key auto_increment,
-    nm_pedido                   varchar(255),
     nm_rua                      varchar(255),
-    nr_cep                      int,
     id_cliente                  int,
 	id_cardapio                 int,
     foreign key (id_cliente) references tb_cliente(id_cliente) on delete cascade,
@@ -54,10 +51,12 @@ create table tb_combo(
       nm_combo          varchar (255),
       nm_lanche         varchar(255),
       nm_bebida         varchar (255),
-      nm_acompanhamento   varchar (255)
+      nm_acompanhamento   varchar (255),
+      id_cardapio        int
+      foreign key (id_cardapio) references tb_cardapio(id_cardapio) on delete cascade
 );
 
-create table tb_cadastro(
+create table tb_cadastro_cliente(
       id_cadastro       varchar(255),
       nm_usuario        varchar(255),
       ds_email          varchar(255),
